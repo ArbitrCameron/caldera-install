@@ -6,6 +6,8 @@ Run from a directory like home that doesn't need sudo privileges for the easiest
 
 Usage: ./Caldera-Install.sh [Server-IP]
 
-You'll be prompted for your sudo password. Once the script has completed running, it will output the credentials that were generated for initial login. Now browse to http://[Server-IP]:8888 and log in with either the blue or red username. 
+You'll be prompted for your sudo password. Once the script has completed running, it will output the credentials that were generated for initial login. Two usernames will be output, 'red' and 'blue' that were collected from the config file at caldera/conf/local.yml.
+
+Now cd to the caldera directory, run `source venv/bin/activate`, then `python server.py`. The server will be ready when you see 'All systems ready' above a colorful and bold output of CALDERA in the terminal. Now browse to http://[Server-IP]:8888 and log in.
 
 Note: installing Caldera with this script currently only allows you to log in using the IP address ran with the script. If you try to login using http://127.0.0.1:8888 or http://localhost:8888, you will be prompted for username and password, but you will not be able to login. No error comes back. 
