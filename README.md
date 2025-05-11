@@ -16,7 +16,7 @@ Node.js
 https://nodejs.org/en/download
 ```
 
-Python3.11 (Simple script I created to install from source - https://github.com/cmurphy06/RescalePy)
+Python3.11 (Simple script I created to build  from source - https://github.com/cmurphy06/RescalePy)
 
 ## Usage:
 ```
