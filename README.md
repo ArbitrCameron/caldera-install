@@ -19,10 +19,12 @@ https://nodejs.org/en/download
 Python3.11 (Simple script I created to install from source - https://github.com/cmurphy06/RescalePy)
 
 ## Usage:
-
+```
+./Caldera-Install.sh [SERVER_IP]
+```
 For best results, run the script from a directory that does not require elevated privileges. You’ll also need to provide the server IP address - this should be the IP of the machine where the Caldera server will be hosted.
 
-Usage: ./Caldera-Install.sh [SERVER_IP]
+
 
 During execution, you will be prompted to enter your sudo password. Upon completion, the script will display the credentials generated for the initial Caldera login. Two user accounts—`red` and `blue`—will be shown, as defined in the `caldera/conf/local.yml` configuration file.
 
