@@ -1,6 +1,6 @@
 # Inferno-Builder
 
-This is a bash script to install a copy of the Caldera ([https://github.com/mitre/caldera](https://github.com/mitre/caldera)) server locally on Kali Linux. This is the first public Bash script I’ve developed, created to support my current role’s use of Caldera. While the official Caldera installation instructions on GitHub are minimal, they often require additional workarounds and troubleshooting. This script was designed to streamline the setup process and reduce the complexity involved.
+This is a bash script to install a copy of the Caldera ([https://github.com/mitre/caldera](https://github.com/mitre/caldera)) server locally on Kali Linux. While the official Caldera installation instructions on GitHub are minimal, they often require additional workarounds and troubleshooting. This script was designed to streamline the setup process and reduce the complexity involved.
 
 ## Prerequisites:
 
@@ -33,3 +33,5 @@ During execution, you will be prompted to enter your sudo password. Upon complet
 Now cd to the caldera directory, run `source venv/bin/activate`, then `python server.py`. The server will be ready when you see 'All systems ready' above a colorful and bold output of CALDERA in the terminal. Now browse to http://[Server-IP]:8888 and log in.
 
 Note: installing Caldera with this script currently only allows you to log in using the IP address ran with the script. If you try to login using [http://127.0.0.1:8888](http://127.0.0.1:8888/) or [http://localhost:8888](http://localhost:8888/), you will be prompted for username and password, but you will not be able to login. No error comes back.
+
+This is the first public script I’ve developed, created to support my current role’s use of Caldera.
