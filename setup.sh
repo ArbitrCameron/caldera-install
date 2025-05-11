@@ -23,26 +23,40 @@ if [ -z "$SERVER_IP" ]; then
     exit 1
 fi
 
-# Step 1: Check if Node.js is installed
-read -n 1 -p "Has APT been updated recently and is Node.js (v16 or higher) installed? (y/n): " NODE_INSTALLED
-
-if [ "$NODE_INSTALLED" != "y" ]; then
-    echo
-    echo "APT must be up to date and Node.js must be installed as a prerequisite. Install from https://nodejs.org/en/download/package-manager"
-    echo
-    echo "Once APT is updated and Node.js is installed, rerun script."
+# Step 1: Check if prereqs installed
+if ! command -v python3.11 &> /dev/null; then
+    echo "Python 3.11 is not installed. You can install utilizing my script at https://github.com/cmurphy06/RescalePy"
     exit 1
 fi
-echo
 
-# Step 2: Install Golang
-echo 'Prompting for sudo password if needed...'
+# Check for Node.js v16+
+NODE_PATH=$(command -v node)
+
+if [ -z "$NODE_PATH" ]; then
+  echo "[ X ] Node.js is not installed or not in PATH. Please install Node.js v16.0 or higher. https://nodejs.org/en/download"
+  exit 1
+fi
+
+# Get current version number
+NODE_VERSION=$("$NODE_PATH" -v | sed 's/^v//')
+REQUIRED_VERSION="16.0.0"
+
+# Compare versions
+version_check=$(printf "%s\n%s" "$REQUIRED_VERSION" "$NODE_VERSION" | sort -V | head -n1)
+if [ "$version_check" = "$NODE_VERSION" ] && [ "$NODE_VERSION" != "$REQUIRED_VERSION" ]; then
+  echo -e "\033[31m[ X ] Node.js version $NODE_VERSION is too old. Please install v$REQUIRED_VERSION or higher.\033[0m"
+  exit 1
+fi
+
+
+# Step 2: Install Dependencies
+echo "Prompting for sudo password if needed..."
 echo
 sudo -v
-echo "Installing Golang..."
-sudo apt install -y golang > /dev/null 2>&1 &
-GoLang_PID=$!
-show_progress $GoLang_PID
+echo "Installing required system packages for build..."
+sudo apt install -y golang build-essential libxml2-dev libxslt1-dev python3-dev libffi-dev libssl-dev > /dev/null 2>&1 &
+DEPS_PID=$!
+show_progress $DEPS_PID
 
 # Step 3: Clone the Caldera repo
 echo "Cloning Caldera repository..."
@@ -55,7 +69,7 @@ cd caldera || { echo "Failed to enter caldera directory."; exit 1; }
 
 # Step 5: Set Up Python Virtual Environment
 echo "Setting up Python virtual environment..."
-python3 -m venv venv > /dev/null 2>&1 &
+python3.11 -m venv venv > /dev/null 2>&1 &
 VENV_PID=$!
 show_progress $VENV_PID
 
@@ -84,13 +98,13 @@ pip install --upgrade pip > /dev/null 2>&1 &
 PIP_UPGRADE_PID=$!
 show_progress $PIP_UPGRADE_PID
 
-pip install -r requirements.txt > /dev/null 2>&1 &
+pip install -r requirements.txt > pip_install.log 2>&1 &
 PIP_INSTALL_PID=$!
 show_progress $PIP_INSTALL_PID
 
 # Step 7: Build Caldera server, run it, then kill it automatically
 echo "Building Caldera server and waiting for 'all systems ready' message (takes about 60-90 seconds)..."
-python server.py --build > /dev/null 2>&1 &
+python server.py --build 2>&1 | tee caldera_build.log &
 SERVER_PID=$!
 
 # Check for the open port to know when the server is ready
