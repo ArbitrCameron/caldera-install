@@ -26,7 +26,7 @@ For best results, run the script from a directory that does not require elevated
 
 
 
-During execution, you will be prompted to enter your sudo password. Upon completion, the script will display the credentials generated for the initial Caldera login. Two user accounts—`red` and `blue`—will be shown, as defined in the `caldera/conf/local.yml` configuration file.
+During execution, you will be prompted to enter your sudo password. Upon completion, the script will display the credentials generated for the initial Caldera login. Two user accounts — `red` and `blue` — will be shown, as defined in the `caldera/conf/local.yml` config.
 
 Now cd to the caldera directory, run `source venv/bin/activate`, then `python server.py`. The server will be ready when you see 'All systems ready' above a colorful and bold output of CALDERA in the terminal. Now browse to http://[Server-IP]:8888 and log in.
 
