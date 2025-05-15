@@ -189,9 +189,9 @@ echo
 echo -e "\033[31m>>===[:: CALDERA IS NOW READY TO KICK A** AND CHEW BUBBLE GUM! ::]===<<\033[0m"
 echo
 # Step 13: Display the local.yml file for credentials
-echo "Displaying credentials-"
+echo "Displaying credentials, saved to caldera/credentials.txt-"
 echo
-tail conf/local.yml | sed -n '8p;10p' | tee credentials.txt  
+grep -E '^\s*(red|blue):' conf/local.yml | tee credentials.txt
 echo
 echo -e "Ensure python virtual environment 'venv' is activated from the Caldera directory by running \033[33msource venv/bin/activate\033[0m, and then run \033[33mpython server.py\033[0m"
 
