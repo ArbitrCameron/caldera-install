@@ -191,7 +191,7 @@ echo
 # Step 13: Display the local.yml file for credentials
 echo "Displaying credentials-"
 echo
-tail conf/local.yml | sed -n '8p;10p'  
+tail conf/local.yml | sed -n '8p;10p' | tee credentials.txt  
 echo
 echo -e "Ensure python virtual environment 'venv' is activated from the Caldera directory by running \033[33msource venv/bin/activate\033[0m, and then run \033[33mpython server.py\033[0m"
 
